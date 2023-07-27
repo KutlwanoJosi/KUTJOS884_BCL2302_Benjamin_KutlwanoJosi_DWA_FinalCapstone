@@ -1,4 +1,5 @@
 import React from 'react';
+import './PodcastItems.css';
 
 const PodcastItem = ({ podcast }) => {
   return (
