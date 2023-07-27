@@ -1,0 +1,22 @@
+.podcast-item {
+    margin-bottom: 20px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .podcast-item h3 {
+    font-size: 1.5rem;
+    margin-bottom: 5px;
+  }
+  
+  .podcast-item p {
+    font-size: 1rem;
+  }
+  
+  .podcast-item audio {
+    width: 100%;
+    margin-top: 10px;
+  }
+  
