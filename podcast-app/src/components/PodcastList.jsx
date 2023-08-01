@@ -1,18 +1,15 @@
-import React from "react";
-import "./PodcastItem.css";
+import React from 'react';
+import PodcastItem from './PodcastItem';
+import './PodcastList.css'; 
 
-const PodcastItem = ({ podcast }) => {
+const PodcastList = ({ podcasts }) => {
   return (
-    <div className="podcast-item">
-      <img src={podcast.image} alt={`Podcast - ${podcast.title}`} />
-      <h3>{podcast.title}</h3>
-      <p>{podcast.description}</p>
-      <audio controls>
-        <source src={podcast.audio} type="audio/mpeg" />
-        Your browser does not support the audio element.
-      </audio>
+    <div className="podcast-list">
+      {podcasts.map((podcast) => (
+        <PodcastItem key={podcast.id} podcast={podcast} />
+      ))}
     </div>
   );
 };
 
-export default PodcastItem;
+export default PodcastList;
