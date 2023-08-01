@@ -1,5 +1,6 @@
 import React from 'react';
 import './Header.css';
+import { SlButton } from '@shoelace-style/shoelace/dist/react';
 
 const Header = () => {
   return (
@@ -15,7 +16,7 @@ const Header = () => {
       {/* Search input field */}
       <div className="search-container">
         <input type="text" placeholder="Search podcasts..." />
-        <button>Search</button>
+        <SlButton variant="primary">Search</SlButton>
       </div>
     </header>
   );
