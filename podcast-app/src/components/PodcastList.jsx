@@ -1,5 +1,5 @@
 import React from 'react';
-import PodcastItem from './PodcastItem';
+import PodcastItem from './PodcastItems';
 import './PodcastList.css'; 
 
 const PodcastList = ({ podcasts }) => {
