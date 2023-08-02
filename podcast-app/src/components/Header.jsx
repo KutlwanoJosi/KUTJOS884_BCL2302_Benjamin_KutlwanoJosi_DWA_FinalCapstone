@@ -5,16 +5,16 @@ import { SlButton, SlInput } from "@shoelace-style/shoelace/dist/react";
 const Header = () => {
   return (
     <header className="app-header">
-      <nav>
+      <nav className="navbar">
         <ul>
           <li>
-            <a href="/home">Home</a>
+            <SlButton href="/home">Home</SlButton>
           </li>
           <li>
-            <a href="/discover">Discover</a>
+            <SlButton href="/discover">Discover</SlButton>
           </li>
           <li>
-            <a href="/favourites">Favourites</a>
+            <SlButton href="/favourites">Favourites</SlButton>
           </li>
         </ul>
       </nav>

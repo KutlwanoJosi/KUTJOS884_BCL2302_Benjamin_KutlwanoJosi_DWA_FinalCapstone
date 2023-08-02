@@ -22,8 +22,8 @@
   /* Style the podcast images */
 .podcast-item img {
   display: block;
-  max-width: 100%;
-  height: auto;
+  max-width: 400px;
+  height: 400px;
   margin: 10px auto; /* Add some margin for spacing */
   border-radius: 4px;
   cursor: pointer; /* Add pointer cursor to indicate interactivity */
