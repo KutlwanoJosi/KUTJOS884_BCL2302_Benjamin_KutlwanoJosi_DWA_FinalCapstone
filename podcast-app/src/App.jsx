@@ -18,7 +18,7 @@ const App = () => {
   }, []);
 
   return (
-    <div>
+    <div className="app">
       <Header />
       <h1>Podcast App</h1>
       <PodcastList podcasts={podcasts} />
