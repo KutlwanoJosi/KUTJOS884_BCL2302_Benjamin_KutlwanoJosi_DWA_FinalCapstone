@@ -73,6 +73,7 @@ const PodcastItem = ({ podcast }) => {
           <p className="description-preview">{podcast.description.slice(0, 100)}...</p>
         )}
       </div>
+      
       <audio controls>
         <source src={podcast.audio} type="audio/mpeg" />
         Your browser does not support the audio element.
