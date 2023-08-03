@@ -1,29 +1,31 @@
 .podcast-item {
-    margin-bottom: 20px;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  }
-  
-  .podcast-item h3 {
-    display: none;
-  }
-  
-  .podcast-item p {
-    font-size: 1rem;
-  }
-  
-  .podcast-item audio {
-    width: 100%;
-    margin-top: 10px;
-  }
-  
-  /* Style the podcast images */
+  margin-bottom: 20px;
+  padding: 10px;
+  border: 1px solid #838282;
+  border-radius: 4px;
+  box-shadow: 0 8px 8px rgba(0, 0, 0, 0.1);
+  cursor: pointer; /* Add pointer cursor to indicate interactivity */
+  position: relative; /* Add relative positioning for the description */
+}
+
+.podcast-item h3 {
+  display: none; /* Hide the title by default */
+}
+
+.podcast-item p {
+  font-size: 1rem;
+}
+
+.podcast-item audio {
+  width: 100%;
+  margin-top: 10px;
+}
+
+/* Style the podcast images */
 .podcast-item img {
   display: block;
-  max-width: 400px;
-  height: 400px;
+  max-width: 100%;
+  height: auto;
   margin: 10px auto; /* Add some margin for spacing */
   border-radius: 4px;
   cursor: pointer; /* Add pointer cursor to indicate interactivity */
@@ -37,7 +39,7 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: rgba(255, 255, 255, 0.9);
+  background-color: #bdb1b1;
   padding: 20px;
   z-index: 9999; /* Ensure the overlay appears above other elements */
   /* Add additional styles for the overlay */
@@ -55,3 +57,16 @@
   max-height: 80px;
   overflow: hidden;
 }
+
+.seasons{
+  text-align: center;
+  padding: 2px;
+  border: 1px solid #838282;
+  border-radius: 4px;
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1);
+}
+
+.podcast-item:hover .overlay {
+  opacity: 1; /* Show overlay on hover */
+}
+
