@@ -1,42 +1,17 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { SlButton, SlCard, SlRating } from '@shoelace-style/shoelace/dist/react';
 import "./PodcastItem.css"; // Import the custom CSS file
 
 const PodcastItem = ({ podcast }) => {
   const [showOverlay, setShowOverlay] = useState(false);
-  const [detailedData, setDetailedData] = useState(null);
-
-  useEffect(() => {
-    const fetchDetailedData = async () => {
-      try {
-        const response = await fetch(`https://podcast-api.netlify.app/id/${podcast.id}`);
-        const data = await response.json();
-        setDetailedData(data);
-      } catch (error) {
-        console.error('Error fetching detailed data:', error);
-      }
-    };
-
-    if (showOverlay && !detailedData) {
-      fetchDetailedData();
-    }
-  }, [showOverlay, podcast.id, detailedData]);
 
   const handleToggleOverlay = () => {
     setShowOverlay((prevShowOverlay) => !prevShowOverlay);
   };
 
-  const handleCloseOverlay = (event) => {
-    if (event.target.closest('.overlay')) return;
-    setShowOverlay(false);
-  };
-
   return (
-    <div
-      className={`podcast-item ${showOverlay ? "show-overlay" : ""}`}
-      onClick={handleCloseOverlay}
-    >
-      <SlCard className="card-overview">
+    <div className={`podcast-item ${showOverlay ? "show-overlay" : ""}`}>
+      <SlCard className="card-overview" onClick={handleToggleOverlay}>
         <img
           slot="image"
           src={podcast.image}
@@ -55,24 +30,16 @@ const PodcastItem = ({ podcast }) => {
         </div>
       </SlCard>
 
-      {showOverlay && detailedData && (
-        <div className={`overlay ${showOverlay ? "active" : ""}`}>
-          <h3>{detailedData.title}</h3>
-          <p className="description">{detailedData.description}</p>
-          
-          {/* Display seasons and episodes */}
-          {detailedData.SEASONS.map((season) => (
-            <div key={season.id}>
-              <h4>Season {season.title}</h4>
-              <ul>
-                {season.EPISODES.map((episode) => (
-                  <li key={episode.id}>{episode.title}</li>
-                ))}
-              </ul>
-            </div>
-          ))}
-        </div>
-      )}
+      <div className="overlay">
+        <h3>{podcast.title}</h3>
+        {showOverlay ? (
+          <p className="description">{podcast.description}</p>
+        ) : (
+          <p className="description-preview">
+            {podcast.description.slice(0, 100)}...
+          </p>
+        )}
+      </div>
 
       <audio controls>
         <source src={podcast.audio} type="audio/mpeg" />
