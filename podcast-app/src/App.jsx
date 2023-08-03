@@ -32,17 +32,28 @@ const App = () => {
     setSelectedGenre(event.target.value);
   };
 
+  const [filteredPodcasts, setFilteredPodcasts] = useState(shows);
+
+  const handleSearch = (searchQuery) => {
+    const lowerCaseQuery = searchQuery.toLowerCase();
+    const filtered = shows.filter((podcast) =>
+      podcast.title.toLowerCase().includes(lowerCaseQuery)
+    );
+    setFilteredPodcasts(filtered);
+  };
+
   return (
     <div className="app">
       <Header
         handleSort={handleSort}
         sortDirection={sortDirection}
+        handleSearch={handleSearch} // Pass the search handler
         handleGenreChange={handleGenreChange}
         selectedGenre={selectedGenre}
       />
       <h1>Mic Drop Moments</h1>
       <PodcastList
-        podcasts={shows}
+        podcasts={filteredPodcasts} // Use the filteredPodcasts state
         sortDirection={sortDirection}
         selectedGenre={selectedGenre}
         handlePodcastClick={handlePodcastClick}
