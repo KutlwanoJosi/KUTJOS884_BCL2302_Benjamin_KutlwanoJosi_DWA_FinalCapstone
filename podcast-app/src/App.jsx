@@ -1,26 +1,70 @@
-import React, { useEffect, useState } from "react";
-import Header from "./components/Header";
-import PodcastList from "./components/PodcastList";
-import "@shoelace-style/shoelace/dist/themes/light.css";
-import { setBasePath } from "@shoelace-style/shoelace/dist/utilities/base-path";
-
-setBasePath("https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@2.6.0/cdn/");
+import React, { useEffect, useState } from 'react';
+import PodcastList from './components/PodcastList';
+import Header from './components/Header';
 
 const App = () => {
-  const [podcasts, setPodcasts] = useState([]);
+  const [shows, setShows] = useState([]);
+  const [selectedShow, setSelectedShow] = useState(null);
+  const [sortDirection, setSortDirection] = useState('asc');
+  const [selectedGenre, setSelectedGenre] = useState('');
 
   useEffect(() => {
-    // Fetch data from the API when the component mounts
-    fetch(`https://podcast-api.netlify.app/shows`)
+    fetch('https://podcast-api.netlify.app/shows')
       .then((response) => response.json())
-      .then((data) => setPodcasts(data));
+      .then((data) => setShows(data))
+      .catch((error) => console.error('Error fetching data:', error));
   }, []);
 
+  const handleSort = () => {
+    setSortDirection((prevSortDirection) =>
+      prevSortDirection === 'asc' ? 'desc' : 'asc'
+    );
+  };
+
+  const handlePodcastClick = (podcast) => {
+    fetch(`https://podcast-api.netlify.app/id/${podcast.id}`)
+      .then((response) => response.json())
+      .then((data) => setSelectedShow(data))
+      .catch((error) => console.error('Error fetching show details:', error));
+  };
+
+  const handleGenreChange = (event) => {
+    setSelectedGenre(event.target.value);
+  };
+
   return (
-    <div>
-      <Header />
-      <h1>Podcast App</h1>
-      <PodcastList podcasts={podcasts} />
+    <div className="app">
+      <Header
+        handleSort={handleSort}
+        sortDirection={sortDirection}
+        handleGenreChange={handleGenreChange}
+        selectedGenre={selectedGenre}
+      />
+      <h1>Mic Drop Moments</h1>
+      <PodcastList
+        podcasts={shows}
+        sortDirection={sortDirection}
+        selectedGenre={selectedGenre}
+        handlePodcastClick={handlePodcastClick}
+        selectedPodcast={selectedShow}
+      />
+      {selectedShow && (
+        <div>
+          <h2>{selectedShow.title}</h2>
+          <p>{selectedShow.description}</p>
+          <strong>
+            <p>Genres: {selectedShow.genre.join(', ')}</p>
+          </strong>
+          <div>
+            <h3>Seasons:</h3>
+            {selectedShow.seasons.map((season) => (
+              <div key={season.id}>
+                <p>{season.title}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
     </div>
   );
 };
