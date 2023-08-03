@@ -1,6 +1,4 @@
 import React from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faArrowUp, faArrowDown } from '@fortawesome/free-solid-svg-icons';
 import './Header.css';
 
 const Header = ({ handleSort, sortDirection, handleSearch, handleGenreChange, selectedGenre }) => {
@@ -35,10 +33,6 @@ const Header = ({ handleSort, sortDirection, handleSearch, handleGenreChange, se
 
       {/* Sorting dropdown */}
       <div className="sort-dropdown">
-        <FontAwesomeIcon
-          icon={sortDirection === 'asc' ? faArrowUp : faArrowDown}
-          className="sort-icon"
-        />
         <select
           id="sort"
           value={sortDirection}

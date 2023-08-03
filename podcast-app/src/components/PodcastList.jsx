@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import PodcastItem from './PodcastItem';
+import PodcastItem from './PodcastItems';
 import './PodcastList.css';
 
 const PodcastList = ({ podcasts, sortDirection, selectedGenre }) => {
