@@ -1,46 +1,66 @@
-import React from "react";
-import "./Header.css";
-import { SlButton, SlInput } from "@shoelace-style/shoelace/dist/react";
+import React from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faArrowUp, faArrowDown } from '@fortawesome/free-solid-svg-icons';
+import './Header.css';
 
-const Header = () => {
+const Header = ({ handleSort, sortDirection, handleSearch, handleGenreChange, selectedGenre }) => {
+  const genreMapping = {
+    1: 'Personal Growth',
+    2: 'True Crime and Investigative Journalism',
+    3: 'History',
+    4: 'Comedy',
+    5: 'Entertainment',
+    6: 'Business',
+    7: 'Fiction',
+    8: 'News',
+    9: 'Kids and Family',
+  };
+
   return (
-  <nav className="navbar navbar-expand-lg bg-body-tertiary">
-    <div className="container-fluid">
-      <a className="navbar-brand" href="#">Navbar</a>
-      <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span className="navbar-toggler-icon"></span>
-      </button>
-      <div className="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul className="navbar-nav me-auto mb-2 mb-lg-0">
-          <li className="nav-item">
-            <a className="nav-link active" aria-current="page" href="#">Home</a>
-          </li>
-          <li className="nav-item">
-            <a className="nav-link" href="#">Link</a>
-          </li>
-          <li className="nav-item dropdown">
-            <a className="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              Dropdown
-            </a>
-            <ul className="dropdown-menu">
-              <li><a className="dropdown-item" href="#">Action</a></li>
-              <li><a className="dropdown-item" href="#">Another action</a></li>
-              <li><hr className="dropdown-divider"/></li>
-              <li><a className="dropdown-item" href="#">Something else here</a></li>
-            </ul>
-          </li>
-          <li className="nav-item">
-            <a className="nav-link disabled" aria-disabled="true">Disabled</a>
-          </li>
-        </ul>
-        <form className="d-flex" role="search">
-          <input className="form-control me-2" type="search" placeholder="Search" aria-label="Search"/>
-          <button className="btn btn-outline-success" type="submit">Search</button>
-        </form>
+    <header className="app-header">
+      <nav>
+        {/* Navigation links */}
+        <button type="button" class="btn btn-outline-dark">Home</button>
+      </nav>
+
+      <div className="search-container">
+        {/* Search input */}
+        <input
+          type="text"
+          placeholder="Search podcasts..."
+          onChange={(e) => handleSearch(e.target.value)}
+        />
+        <button type="button" class="btn btn-outline-dark">Search</button>
       </div>
-    </div>
-  </nav>
-    
+
+      {/* Sorting dropdown */}
+      <div className="sort-dropdown">
+        <FontAwesomeIcon
+          icon={sortDirection === 'asc' ? faArrowUp : faArrowDown}
+          className="sort-icon"
+        />
+        <select
+          id="sort"
+          value={sortDirection}
+          onChange={(e) => handleSort(e.target.value)}
+        >
+          <option value="asc">Ascending</option>
+          <option value="desc">Descending</option>
+        </select>
+      </div>
+
+      {/* Genre selection dropdown */}
+      <div className="genre-dropdown">
+        <select value={selectedGenre} onChange={handleGenreChange}>
+          <option value="">Select a Genre</option>
+          {Object.keys(genreMapping).map((genreId) => (
+            <option key={genreId} value={genreId}>
+              {genreMapping[genreId]}
+            </option>
+          ))}
+        </select>
+      </div>
+    </header>
   );
 };
 
