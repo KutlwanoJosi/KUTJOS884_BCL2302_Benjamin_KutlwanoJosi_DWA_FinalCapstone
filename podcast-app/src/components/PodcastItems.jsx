@@ -1,11 +1,18 @@
 import React, { useState } from "react";
 import "./PodcastItem.css"; // Import the custom CSS file
 
-const PodcastItem = ({ podcast }) => {
+const PodcastItem = ({ podcast, handlePodcastClick }) => {
   const [showOverlay, setShowOverlay] = useState(false);
+  const [isLoading, setIsLoading] = useState(false); // Added isLoading state
 
-  const handleToggleOverlay = () => {
+  const handleToggleOverlay = async () => {
     setShowOverlay((prevShowOverlay) => !prevShowOverlay);
+    if (!showOverlay) {
+      setIsLoading(true);
+      // Simulate loading with a delay
+      await new Promise((resolve) => setTimeout(resolve, 2000)); // Adjust the delay time as needed
+      setIsLoading(false);
+    }
   };
 
   const genreMapping = {
@@ -36,25 +43,35 @@ const PodcastItem = ({ podcast }) => {
         width="200"
       />
 
-      <div className="overlay">
-        <div
-          className="podcast-item"
-          onClick={() => handlePodcastClick(podcast)}
-        >
-          <h2>{podcast.title}</h2>
-          <p>{podcast.description}</p>
-          <strong>
-            <p>Genre: {genreTitles.join(", ")}</p>
-          </strong>
+      {showOverlay && (
+        <div className="overlay">
+          <div className="podcast-item">
+            {isLoading ? (
+              <h1>Loading...</h1>
+            ) : (
+              <div>
+                <h2>{podcast.title}</h2>
+                <img
+                  src={podcast.image}
+                  alt={`Podcast - ${podcast.title}`}
+                  height="200"
+                  width="200"
+                />
+                <p>{podcast.description}</p>
+                <strong>
+                  <p>Genre: {genreTitles.join(", ")}</p>
+                </strong>
+              </div>
+            )}
+          </div>
         </div>
-      </div>
+      )}
 
       <div className="seasons">
         <strong>
           <p>Seasons: {podcast.seasons}</p>
         </strong>
       </div>
-
     </div>
   );
 };

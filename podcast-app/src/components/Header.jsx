@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import "./Header.css";
+import micImage from '../images/mic.png'; // Update the path based on your project structure
+
 
 const Header = ({
   handleSort,
@@ -30,8 +32,10 @@ const Header = ({
   return (
     <header className="app-header">
 
-      <div>
-      <h3 className="PodcastName">Mic Drop Moments</h3>
+      {/* Mic Image */}
+      <div className="mic-image-container">
+        <img src={micImage} alt="Mic" className="mic-image" />
+        <h3 className="PodcastName">Mic Drop Moments</h3>
       </div>
 
       {/* Search input */}
@@ -52,8 +56,8 @@ const Header = ({
           value={sortDirection}
           onChange={(e) => handleSort(e.target.value)}
         >
-          <option value="asc">Ascending</option>
-          <option value="desc">Descending</option>
+          <option value="asc">A-Z</option>
+          <option value="desc">Z-A</option>
         </select>
       </div>
 
