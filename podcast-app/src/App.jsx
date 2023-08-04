@@ -1,17 +1,19 @@
 import React, { useEffect, useState } from 'react';
 import PodcastList from './components/PodcastList';
 import Header from './components/Header';
+import PodcastItems from './components/PodcastItems';
 
 const App = () => {
-  const [shows, setShows] = useState([]);
-  const [selectedShow, setSelectedShow] = useState(null);
+  const [podcasts, setPodcasts] = useState([]);
   const [sortDirection, setSortDirection] = useState('asc');
+  const [selectedPodcast, setSelectedPodcast] = useState(null);
   const [selectedGenre, setSelectedGenre] = useState('');
+  const [searchQuery, setSearchQuery] = useState('');
 
   useEffect(() => {
     fetch('https://podcast-api.netlify.app/shows')
       .then((response) => response.json())
-      .then((data) => setShows(data))
+      .then((data) => setPodcasts(data))
       .catch((error) => console.error('Error fetching data:', error));
   }, []);
 
@@ -22,60 +24,37 @@ const App = () => {
   };
 
   const handlePodcastClick = (podcast) => {
-    fetch(`https://podcast-api.netlify.app/id/${podcast.id}`)
-      .then((response) => response.json())
-      .then((data) => setSelectedShow(data))
-      .catch((error) => console.error('Error fetching show details:', error));
+    setSelectedPodcast(podcast);
   };
 
   const handleGenreChange = (event) => {
     setSelectedGenre(event.target.value);
   };
 
-  const [filteredPodcasts, setFilteredPodcasts] = useState(shows);
-
-  const handleSearch = (searchQuery) => {
-    const lowerCaseQuery = searchQuery.toLowerCase();
-    const filtered = shows.filter((podcast) =>
-      podcast.title.toLowerCase().includes(lowerCaseQuery)
-    );
-    setFilteredPodcasts(filtered);
+  const handleSearch = (query) => {
+    setSearchQuery(query);
   };
 
   return (
     <div className="app">
+      
       <Header
         handleSort={handleSort}
         sortDirection={sortDirection}
-        handleSearch={handleSearch} // Pass the search handler
         handleGenreChange={handleGenreChange}
         selectedGenre={selectedGenre}
+        handleSearch={handleSearch}
       />
+
       <h1>Mic Drop Moments</h1>
       <PodcastList
-        podcasts={filteredPodcasts} // Use the filteredPodcasts state
+        podcasts={podcasts}
         sortDirection={sortDirection}
         selectedGenre={selectedGenre}
+        searchQuery={searchQuery}
         handlePodcastClick={handlePodcastClick}
-        selectedPodcast={selectedShow}
       />
-      {selectedShow && (
-        <div>
-          <h2>{selectedShow.title}</h2>
-          <p>{selectedShow.description}</p>
-          <strong>
-            <p>Genres: {selectedShow.genre.join(', ')}</p>
-          </strong>
-          <div>
-            <h3>Seasons:</h3>
-            {selectedShow.seasons.map((season) => (
-              <div key={season.id}>
-                <p>{season.title}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      )}
+      {selectedPodcast && <PodcastItems selectedPodcast={selectedPodcast} />}
     </div>
   );
 };

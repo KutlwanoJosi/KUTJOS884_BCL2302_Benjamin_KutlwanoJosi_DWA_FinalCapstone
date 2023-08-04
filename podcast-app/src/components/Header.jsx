@@ -1,44 +1,46 @@
-import React from "react";
-import "./Header.css";
+import React, { useState } from 'react';
+import './Header.css';
 
-
-const Header = ({
-  handleSort,
-  sortDirection,
-  handleSearch,
-  handleGenreChange,
-  selectedGenre,
-}) => {
-  
+const Header = ({ handleSort, sortDirection, handleSearch, handleGenreChange, selectedGenre }) => {
+  const [searchQuery, setSearchQuery] = useState('');
   const genreMapping = {
-    1: "Personal Growth",
-    2: "True Crime and Investigative Journalism",
-    3: "History",
-    4: "Comedy",
-    5: "Entertainment",
-    6: "Business",
-    7: "Fiction",
-    8: "News",
-    9: "Kids and Family",
+    1: 'Personal Growth',
+    2: 'True Crime and Investigative Journalism',
+    3: 'History',
+    4: 'Comedy',
+    5: 'Entertainment',
+    6: 'Business',
+    7: 'Fiction',
+    8: 'News',
+    9: 'Kids and Family',
+  };
+
+  const handleSearchInputChange = (event) => {
+    const query = event.target.value;
+    setSearchQuery(query);
+    handleSearch(query); // Call the handleSearch function passed from App
   };
 
   return (
     <header className="app-header">
+      {/* Navigation links */}
       <nav>
         {/* Navigation links */}
-        <button type="button" class="btn btn-outline-dark">
-          Home
-        </button>
       </nav>
 
-      <div className="search-container">
-        {/* Search input */}
+      {/* Search input */}
+      <div className="search-box">
         <input
           type="text"
-          placeholder="Search podcasts..."
-          onChange={(e) => handleSearch(e.target.value)}
+          placeholder="Search podcasts by title..."
+          value={searchQuery}
+          onChange={handleSearchInputChange} // Handle search input change
         />
-        <button type="button" class="btn btn-outline-dark">
+        <button
+          type="button"
+          className="search-button"
+          onClick={() => handleSearch(searchQuery)} // Call handleSearch when the button is clicked
+        >
           Search
         </button>
       </div>
@@ -50,14 +52,14 @@ const Header = ({
           value={sortDirection}
           onChange={(e) => handleSort(e.target.value)}
         >
-          <option value="asc">A-Z</option>
-          <option value="desc">Z-A</option>
+          <option value="asc">Ascending</option>
+          <option value="desc">Descending</option>
         </select>
       </div>
 
       {/* Genre selection dropdown */}
       <div className="genre-dropdown">
-        <select id="sortGenre" value={selectedGenre} onChange={handleGenreChange}>
+        <select value={selectedGenre} onChange={handleGenreChange}>
           <option value="">Select a Genre</option>
           {Object.keys(genreMapping).map((genreId) => (
             <option key={genreId} value={genreId}>

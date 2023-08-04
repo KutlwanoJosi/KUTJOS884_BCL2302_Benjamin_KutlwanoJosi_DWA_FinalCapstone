@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import PodcastItem from './PodcastItems';
 import './PodcastList.css';
 
-const PodcastList = ({ podcasts, sortDirection, selectedGenre }) => {
+const PodcastList = ({ podcasts, sortDirection, selectedGenre, searchQuery }) => {
   const [sortedPodcasts, setSortedPodcasts] = useState([]);
 
   useEffect(() => {
@@ -23,8 +23,15 @@ const PodcastList = ({ podcasts, sortDirection, selectedGenre }) => {
       ? sorted.filter((podcast) => podcast.genres.includes(parseInt(selectedGenre)))
       : sorted;
 
-    setSortedPodcasts(filteredPodcasts);
-  }, [podcasts, sortDirection, selectedGenre]);
+    // Apply filtering based on searchQuery
+    const searchedPodcasts = searchQuery
+      ? filteredPodcasts.filter((podcast) =>
+          podcast.title.toLowerCase().includes(searchQuery.toLowerCase())
+        )
+      : filteredPodcasts;
+
+    setSortedPodcasts(searchedPodcasts);
+  }, [podcasts, sortDirection, selectedGenre, searchQuery]);
 
   return (
     <div className="podcast-list">
