@@ -1,18 +1,24 @@
-import React, { useState } from 'react';
-import './Header.css';
+import React, { useState } from "react";
+import "./Header.css";
 
-const Header = ({ handleSort, sortDirection, handleSearch, handleGenreChange, selectedGenre }) => {
-  const [searchQuery, setSearchQuery] = useState('');
+const Header = ({
+  handleSort,
+  sortDirection,
+  handleSearch,
+  handleGenreChange,
+  selectedGenre,
+}) => {
+  const [searchQuery, setSearchQuery] = useState("");
   const genreMapping = {
-    1: 'Personal Growth',
-    2: 'True Crime and Investigative Journalism',
-    3: 'History',
-    4: 'Comedy',
-    5: 'Entertainment',
-    6: 'Business',
-    7: 'Fiction',
-    8: 'News',
-    9: 'Kids and Family',
+    1: "Personal Growth",
+    2: "True Crime and Investigative Journalism",
+    3: "History",
+    4: "Comedy",
+    5: "Entertainment",
+    6: "Business",
+    7: "Fiction",
+    8: "News",
+    9: "Kids and Family",
   };
 
   const handleSearchInputChange = (event) => {
@@ -23,26 +29,20 @@ const Header = ({ handleSort, sortDirection, handleSearch, handleGenreChange, se
 
   return (
     <header className="app-header">
-      {/* Navigation links */}
-      <nav>
-        {/* Navigation links */}
-      </nav>
+
+      <div>
+      <h3 className="PodcastName">Mic Drop Moments</h3>
+      </div>
 
       {/* Search input */}
       <div className="search-box">
         <input
+          id="input"
           type="text"
           placeholder="Search podcasts by title..."
           value={searchQuery}
           onChange={handleSearchInputChange} // Handle search input change
         />
-        <button
-          type="button"
-          className="search-button"
-          onClick={() => handleSearch(searchQuery)} // Call handleSearch when the button is clicked
-        >
-          Search
-        </button>
       </div>
 
       {/* Sorting dropdown */}
@@ -59,7 +59,7 @@ const Header = ({ handleSort, sortDirection, handleSearch, handleGenreChange, se
 
       {/* Genre selection dropdown */}
       <div className="genre-dropdown">
-        <select value={selectedGenre} onChange={handleGenreChange}>
+        <select id="genre" value={selectedGenre} onChange={handleGenreChange}>
           <option value="">Select a Genre</option>
           {Object.keys(genreMapping).map((genreId) => (
             <option key={genreId} value={genreId}>

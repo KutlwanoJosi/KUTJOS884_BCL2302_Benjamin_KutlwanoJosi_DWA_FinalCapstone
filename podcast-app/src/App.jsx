@@ -46,7 +46,7 @@ const App = () => {
         handleSearch={handleSearch}
       />
 
-      <h1>Mic Drop Moments</h1>
+      
       <PodcastList
         podcasts={podcasts}
         sortDirection={sortDirection}
