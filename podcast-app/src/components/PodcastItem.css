@@ -33,25 +33,33 @@
   cursor: pointer; /* Add pointer cursor to indicate interactivity */
 }
 
-/* Style the overlay */
 .overlay {
-  display: none;
+  /* Your existing styles */
   position: fixed;
   top: 0;
   left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: #F4F2DE;
-  padding: 20px;
-  z-index: 9999; /* Ensure the overlay appears above other elements */
-  /* Add additional styles for the overlay */
-  
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  visibility: hidden;
+  z-index: 1000;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+
+  /* Add these styles for scrolling */
+  overflow-y: auto;
 }
+
 
 /* Show the overlay when the podcast item is clicked */
 .podcast-item.show-overlay .overlay {
   display: block;
   text-align: center;
+  opacity: 1;
+  visibility: visible;
 }
 
 /* Style the description preview */

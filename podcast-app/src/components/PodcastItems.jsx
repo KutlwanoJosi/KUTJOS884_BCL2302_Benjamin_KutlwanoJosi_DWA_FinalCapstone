@@ -29,6 +29,12 @@ const PodcastItem = ({ podcast, handlePodcastClick }) => {
 
   const genreTitles = podcast.genres.map((genreId) => genreMapping[genreId]);
 
+  const lastUpdatedDate = new Date(podcast.updated).toLocaleDateString("en-US", {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  });
+
   return (
     <div
       className={`podcast-item ${showOverlay ? "show-overlay" : ""}`}
@@ -47,7 +53,7 @@ const PodcastItem = ({ podcast, handlePodcastClick }) => {
         <div className="overlay">
           <div className="podcast-item">
             {isLoading ? (
-              <h1>Loading...</h1>
+              <h1>Loading...</h1> // Display loading message
             ) : (
               <div>
                 <h2>{podcast.title}</h2>
@@ -60,6 +66,7 @@ const PodcastItem = ({ podcast, handlePodcastClick }) => {
                 <p>{podcast.description}</p>
                 <strong>
                   <p>Genre: {genreTitles.join(", ")}</p>
+                  <p>Last Updated: {lastUpdatedDate}</p> {/* Display last updated date */}
                 </strong>
               </div>
             )}
