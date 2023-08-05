@@ -1,13 +1,30 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import PodcastItem from './PodcastItems';
 import './PodcastList.css';
+import Fuse from 'fuse.js';
 
 const PodcastList = ({ podcasts, sortDirection, selectedGenre, searchQuery }) => {
   const [sortedPodcasts, setSortedPodcasts] = useState([]);
 
   useEffect(() => {
-    // Apply sorting
-    const sorted = [...podcasts];
+    // Create a new instance of Fuse with your podcast data
+    const fuse = new Fuse(podcasts, {
+      keys: ['title', 'description'], // Fields to search within
+      threshold: 0.3, // Fuzzy matching threshold (adjust as needed)
+    });
+
+    // Apply filtering based on selectedGenre
+    const filteredPodcasts = selectedGenre
+      ? podcasts.filter((podcast) => podcast.genres.includes(parseInt(selectedGenre)))
+      : podcasts;
+
+    // Apply searching based on searchQuery using Fuse.js
+    const searchedPodcasts = searchQuery
+      ? fuse.search(searchQuery).map((result) => result.item)
+      : filteredPodcasts;
+
+    // Apply sorting based on selected sortDirection
+    const sorted = [...searchedPodcasts];
     sorted.sort((a, b) => {
       const titleA = a.title.toLowerCase();
       const titleB = b.title.toLowerCase();
@@ -18,19 +35,7 @@ const PodcastList = ({ podcasts, sortDirection, selectedGenre, searchQuery }) =>
       }
     });
 
-    // Apply filtering based on selectedGenre
-    const filteredPodcasts = selectedGenre
-      ? sorted.filter((podcast) => podcast.genres.includes(parseInt(selectedGenre)))
-      : sorted;
-
-    // Apply filtering based on searchQuery
-    const searchedPodcasts = searchQuery
-      ? filteredPodcasts.filter((podcast) =>
-          podcast.title.toLowerCase().includes(searchQuery.toLowerCase())
-        )
-      : filteredPodcasts;
-
-    setSortedPodcasts(searchedPodcasts);
+    setSortedPodcasts(sorted);
   }, [podcasts, sortDirection, selectedGenre, searchQuery]);
 
   return (
