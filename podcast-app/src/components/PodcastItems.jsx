@@ -3,7 +3,8 @@ import "./PodcastItem.css"; // Import the custom CSS file
 
 const PodcastItem = ({ podcast, handlePodcastClick }) => {
   const [showOverlay, setShowOverlay] = useState(false);
-  const [isLoading, setIsLoading] = useState(false); // Added isLoading state
+  const [isLoading, setIsLoading] = useState(false);
+  const [isFavorite, setIsFavorite] = useState(false); // State for favorite status
 
   const handleToggleOverlay = async () => {
     setShowOverlay((prevShowOverlay) => !prevShowOverlay);
@@ -25,15 +26,14 @@ const PodcastItem = ({ podcast, handlePodcastClick }) => {
     7: "Fiction",
     8: "News",
     9: "Kids and Family",
+    // Add more genre mappings here
   };
 
   const genreTitles = podcast.genres.map((genreId) => genreMapping[genreId]);
 
-  const lastUpdatedDate = new Date(podcast.updated).toLocaleDateString("en-US", {
-    year: "numeric",
-    month: "long",
-    day: "numeric",
-  });
+  const handleFavoriteClick = () => {
+    setIsFavorite((prevIsFavorite) => !prevIsFavorite);
+  };
 
   return (
     <div
@@ -53,7 +53,7 @@ const PodcastItem = ({ podcast, handlePodcastClick }) => {
         <div className="overlay">
           <div className="podcast-item">
             {isLoading ? (
-              <h1>Loading...</h1> // Display loading message
+              <h1>Loading...</h1>
             ) : (
               <div>
                 <h2>{podcast.title}</h2>
@@ -66,8 +66,10 @@ const PodcastItem = ({ podcast, handlePodcastClick }) => {
                 <p>{podcast.description}</p>
                 <strong>
                   <p>Genre: {genreTitles.join(", ")}</p>
-                  <p>Last Updated: {lastUpdatedDate}</p> {/* Display last updated date */}
                 </strong>
+                <button onClick={handleFavoriteClick}>
+                  {isFavorite ? "Unfavorite" : "Favorite"}
+                </button>
               </div>
             )}
           </div>
