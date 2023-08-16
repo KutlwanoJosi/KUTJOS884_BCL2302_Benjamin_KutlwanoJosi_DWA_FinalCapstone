@@ -3,7 +3,7 @@
   margin-top: 20px;
   padding: 10px;
   border: 1px solid #838282;
-  background-color: #A1CCD1;
+  background-color: #146296;
   border-radius: 4px;
   box-shadow: 0 8px 8px rgba(0, 0, 0, 0.1);
   cursor: pointer; /* Add pointer cursor to indicate interactivity */
@@ -16,6 +16,11 @@
 
 .podcast-item p {
   font-size: 1rem;
+  color: whitesmoke;
+}
+
+.seasons p{
+  color: black;
 }
 
 .podcast-item audio {
@@ -48,9 +53,11 @@
   visibility: hidden;
   z-index: 1000;
   transition: opacity 0.3s ease, visibility 0.3s ease;
-
-  /* Add these styles for scrolling */
   overflow-y: auto;
+}
+
+.overlay h1{
+  color: whitesmoke;
 }
 
 
@@ -72,11 +79,11 @@
 
 .seasons{
   text-align: center;
-  padding: 2px;
+  /* padding: 2px; */
   border: 1px solid #838282;
   border-radius: 4px;
   box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1);
-  background-color: #F4F2DE;
+  background-color: #BBE1FA;
 }
 
 .podcast-item:hover .overlay {
@@ -104,3 +111,20 @@ h1 {
   animation: beat 0.6s infinite;
 }
 
+.favBtn{
+  text-align: center;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-right: 10px;
+  padding-left: 10px;
+  border: 2px solid #302f2f;
+  border-radius: 4px;
+  box-shadow: 0 8px 8px rgba(0, 0, 0, 0.1);
+  background-color: #BBE1FA;
+  font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  font-weight: bold;
+}
+
+.overlay h2{
+  color: whitesmoke;
+}

@@ -13,11 +13,13 @@
     "@fortawesome/fontawesome-svg-core": "^6.4.2",
     "@fortawesome/free-solid-svg-icons": "^6.4.2",
     "@shoelace-style/shoelace": "^2.6.0",
+    "@supabase/supabase-js": "^2.32.0",
     "bootstrap": "^5.3.1",
     "fuse.js": "^6.6.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-responsive-carousel": "^3.2.23",
+    "react-router-dom": "^6.14.2",
     "shoelace": "^0.1.1"
   },
   "devDependencies": {

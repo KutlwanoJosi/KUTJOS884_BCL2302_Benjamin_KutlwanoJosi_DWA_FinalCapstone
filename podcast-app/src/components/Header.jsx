@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Link } from 'react-router-dom'; // Import Link component
 import "./Header.css";
 import micImage from '../images/mic.png'; // Update the path based on your project structure
 
@@ -9,6 +10,7 @@ const Header = ({
   handleSearch,
   handleGenreChange,
   selectedGenre,
+  selectedShow,
 }) => {
   const [searchQuery, setSearchQuery] = useState("");
   const genreMapping = {
@@ -37,6 +39,13 @@ const Header = ({
         <img src={micImage} alt="Mic" className="mic-image" />
         <h3 className="PodcastName">Mic Drop Moments</h3>
       </div>
+
+      {/* Link to ShowDetailsPage */}
+      {/* <div className="show-details-link">
+        <Link to={`/show/${selectedShow.id}`}>
+          Show Details
+        </Link>
+      </div> */}
 
       {/* Search input */}
       <div className="search-box">

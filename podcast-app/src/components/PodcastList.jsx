@@ -4,6 +4,7 @@ import './PodcastList.css';
 import Fuse from 'fuse.js';
 
 const PodcastList = ({ podcasts, sortDirection, selectedGenre, searchQuery }) => {
+  // State for holding the sorted and filtered podcasts
   const [sortedPodcasts, setSortedPodcasts] = useState([]);
 
   useEffect(() => {
@@ -35,12 +36,14 @@ const PodcastList = ({ podcasts, sortDirection, selectedGenre, searchQuery }) =>
       }
     });
 
+    // Update the state with the sorted and filtered podcasts
     setSortedPodcasts(sorted);
   }, [podcasts, sortDirection, selectedGenre, searchQuery]);
 
   return (
     <div className="podcast-list">
       {sortedPodcasts.map((podcast) => (
+        // Render each PodcastItem component with the sorted and filtered podcast data
         <PodcastItem key={podcast.id} podcast={podcast} />
       ))}
     </div>
